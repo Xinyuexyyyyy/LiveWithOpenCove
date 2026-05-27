@@ -2,7 +2,7 @@
 
 > 本文件定义当前工作区内 agent 的行为规则。配合全局 `~/.claude/CLAUDE.md` 使用。
 >
-> 推荐的全局规则（收敛型 MVP 执行原则、开工/收尾输出格式、禁止事项）请参考仓库根目录的 [`docs/global-rules.md`](../../docs/global-rules.md)，或直接套用你自己的全局 CLAUDE.md。
+> 推荐的全局规则（收敛型 MVP 执行原则、开工/收尾输出格式、禁止事项）请参考仓库根目录的 [`docs/global-rules.md`](../../../docs/global-rules.md)，或直接套用你自己的全局 CLAUDE.md。
 
 ---
 
