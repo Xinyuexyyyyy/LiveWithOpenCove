@@ -29,7 +29,8 @@ cd LiveWithOpenCove
 ## 仓库结构
 
 - [`workspace-skeleton/`](./workspace-skeleton/) — 单个工作区的最小骨架（CLAUDE.md + 6 文件记忆 + AGENTS.md）
-- [`shared-skills-skeleton/`](./shared-skills-skeleton/) — 跨工作区共享 skill 池的架构说明
+- [`shared-skills-skeleton/`](./shared-skills-skeleton/) — 跨工作区共享 skill 池：架构说明 + 三件套（task-analyze / task-decompose / closeout）
+- [`examples/`](./examples/) — 三个虚构的示例工作区（maker / writer / researcher），展示不同角色长什么样
 - [`bin/init-workspace.sh`](./bin/init-workspace.sh) — 改造任意目录的脚本
 
 ## 设计原则
