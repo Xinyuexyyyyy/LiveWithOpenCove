@@ -29,7 +29,7 @@ cd LiveWithOpenCove
 ## 仓库结构
 
 - [`workspace-skeleton/`](./workspace-skeleton/) — 单个工作区的最小骨架（CLAUDE.md + 6 文件记忆 + AGENTS.md）
-- [`shared-skills-skeleton/`](./shared-skills-skeleton/) — 跨工作区共享 skill 池：架构说明 + 三件套（task-analyze / task-decompose / closeout）
+- [`shared-skills-skeleton/`](./shared-skills-skeleton/) — 跨工作区共享 skill 池：架构说明 + 5 个 skill（task-analyze / task-decompose / idea-to-research / closeout / output-polisher）
 - [`examples/`](./examples/) — 三个虚构的示例工作区（maker / writer / researcher），展示不同角色长什么样
 - [`docs/`](./docs/) — 设计文档（如 [`global-rules.md`](./docs/global-rules.md) 推荐的全局规则）
 - [`bin/init-workspace.sh`](./bin/init-workspace.sh) — 改造任意目录的脚本
@@ -46,6 +46,17 @@ cd LiveWithOpenCove
 - 不是 OpenCove 本身，是一套基于 OpenCove 的工作区组织方法
 - 不是 agent 框架，是一套人和 agent 协作的规则
 - 不是教程，是骨架；具体怎么用看你自己
+
+## 姊妹仓库
+
+不放在本仓库里、但跟这套 setup 一起用的独立 skill：
+
+- **[harvest-tool](https://github.com/Xinyuexyyyyy/harvest-tool)** — GitHub 借鉴型调研工具。给一个 GitHub 仓库链接，按"抓取 → 分析 → 借鉴分层 → 共识落盘"产出结构化共识文档。独立开源、独立维护、独立版本。
+
+之所以单独放仓库而不并入本 setup：
+
+- 它有 Python 实现 + 测试 + 独立的 release 节奏，并入会拖累 monorepo
+- 它能脱离 OpenCove / 多工作区独立使用，受众更广
 
 ## License
 

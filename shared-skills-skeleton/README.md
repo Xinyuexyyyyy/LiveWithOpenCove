@@ -4,15 +4,17 @@
 
 ## 包含的 skill
 
-这三个是任意工作区都用得到的最小闭环：
+这五个 skill 覆盖**理解 → 拆 → 路由 → 收 → 润色**的完整闭环：
 
 | Skill | 类型 | 触发场景 |
 |-------|------|---------|
 | [`task-analyze`](./task-analyze/SKILL.md) | 轻型 | 任何新需求、模糊想法、问题描述的第一步 |
 | [`task-decompose`](./task-decompose/SKILL.md) | 轻型 | 已分析清楚的任务需要拆成多步执行 |
+| [`idea-to-research`](./idea-to-research/SKILL.md) | 重型 | 想法还太模糊，先判断后面该走哪条调研路线 |
 | [`closeout`](./closeout/SKILL.md) | 轻型 | 任务结束时输出 6 段总结，建议更新记忆 |
+| [`output-polisher`](./output-polisher/SKILL.md) | 工具 | 已写好的 Markdown 做 Obsidian 导出后处理 |
 
-三个 skill 共同形成 **理解 → 拆 → 收** 的最小协作回路。
+前四个是规则文本，第五个（output-polisher）含 Node.js 脚本，idea-to-research 含 Python 模块 + 测试。
 
 ## 怎么用
 
@@ -20,17 +22,21 @@
 
 ```bash
 # 假设你已经有 ~/shared-skills/
-cp -r shared-skills-skeleton/task-analyze ~/shared-skills/
-cp -r shared-skills-skeleton/task-decompose ~/shared-skills/
-cp -r shared-skills-skeleton/closeout ~/shared-skills/
+cp -r shared-skills-skeleton/task-analyze     ~/shared-skills/
+cp -r shared-skills-skeleton/task-decompose   ~/shared-skills/
+cp -r shared-skills-skeleton/idea-to-research ~/shared-skills/
+cp -r shared-skills-skeleton/closeout         ~/shared-skills/
+cp -r shared-skills-skeleton/output-polisher  ~/shared-skills/
 ```
 
 然后在工作区下软链接：
 
 ```bash
-ln -sf ~/shared-skills/task-analyze ~/my-workspace/skills/task-analyze
-ln -sf ~/shared-skills/task-decompose ~/my-workspace/skills/task-decompose
-ln -sf ~/shared-skills/closeout ~/my-workspace/skills/closeout
+ln -sf ~/shared-skills/task-analyze     ~/my-workspace/skills/task-analyze
+ln -sf ~/shared-skills/task-decompose   ~/my-workspace/skills/task-decompose
+ln -sf ~/shared-skills/idea-to-research ~/my-workspace/skills/idea-to-research
+ln -sf ~/shared-skills/closeout         ~/my-workspace/skills/closeout
+ln -sf ~/shared-skills/output-polisher  ~/my-workspace/skills/output-polisher
 ```
 
 ### 方式二：从这里直接软链接
