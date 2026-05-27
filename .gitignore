@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local overrides
+.claude/settings.local.json
+.claude/skill-usage.jsonl
+.claude/draft/
+.claude/task_draft/
+
+# Logs
+*.log
+
+# Env
+.env
+.env.local
