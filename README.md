@@ -15,8 +15,9 @@
 - 让 agent 自动写记忆，结果它把"用户半夜抱怨产品"这种话也写进去了
 - 三天没碰项目，回来打开 agent，它不记得上次到哪，你自己也想不起来
 - skill 越加越多，最后变成一棵自己都找不到的目录树
+- agent 每次踩同一个坑，上轮的教训这轮就忘了
 
-这套骨架解决前 4 件事。第 5 件（skill 治理）有部分工具但还没全部开源。
+这套骨架解决前 4 件事，外加第 6 件：**自进化经验库**——agent 把复发的坑提炼成经验、下次自动召回绕开（v0.5 新增，见下文）。第 5 件（skill 治理）有部分工具但还没全部开源。
 
 它**不解决**：agent 本身的智力问题、多人团队协作、agent 之间的实时编排。
 
@@ -36,14 +37,20 @@ clone 仓库后跑：
 my-workspace/
 ├── .claude/
 │   ├── CLAUDE.md                  # 这个工作区的规则（agent 必读）
-│   └── memory/
-│       ├── MEMORY.md              # 记忆索引
-│       ├── workspace-brief.md     # 这个工作区是什么、做什么
-│       ├── workspace-map.md       # 活跃项目地图
-│       ├── timeline.md            # 会话流水（倒序追加）
-│       ├── current-position.md    # 当前焦点、下一步、阻塞
-│       ├── decisions.md           # 拍板决策（为什么这么做）
-│       └── lessons.md             # 复盘（下次怎么做）
+│   ├── memory/
+│   │   ├── MEMORY.md              # 记忆索引
+│   │   ├── workspace-brief.md     # 这个工作区是什么、做什么
+│   │   ├── workspace-map.md       # 活跃项目地图
+│   │   ├── timeline.md            # 会话流水（倒序追加）
+│   │   ├── current-position.md    # 当前焦点、下一步、阻塞
+│   │   ├── decisions.md           # 拍板决策（为什么这么做）
+│   │   ├── lessons.md             # 复盘（下次怎么做，带 scope/计数 meta）
+│   │   └── lessons-archive.md     # 退役经验归档
+│   └── scripts/                   # 机器维护（纯整理、可回滚、无需确认）
+│       ├── memory_gc.py           # timeline 裁剪到最近 N 条
+│       ├── lessons_gc.py          # 经验库体检：去重/矛盾/退役
+│       ├── check_map.py           # 目录归位缺口检测
+│       └── organize.py            # 产物目录自整理
 ├── AGENTS.md                      # Codex 入口（读同一份资产）
 └── skills/                        # 软链接到 ~/shared-skills/<name>
     ├── task-analyze    -> ~/shared-skills/task-analyze
@@ -51,7 +58,7 @@ my-workspace/
     └── ...
 ```
 
-记忆全是 markdown — 你能 `cat`、能 `diff`、能 `grep`、能手改。**没有黑箱 sqlite，也没有 agent 偷偷写的字段**。
+记忆全是 markdown — 你能 `cat`、能 `diff`、能 `grep`、能手改。**没有黑箱 sqlite，也没有 agent 偷偷写的字段**。脚本是纯机械维护（裁剪/体检/整理），可回滚，不改语义，所以不需要你确认。
 
 ---
 
@@ -188,20 +195,21 @@ cd LiveWithOpenCove
 
 ## 仓库结构
 
-- [`workspace-skeleton/`](./workspace-skeleton/) — 单个工作区最小骨架
+- [`workspace-skeleton/`](./workspace-skeleton/) — 单个工作区最小骨架（含 `.claude/scripts/` 维护脚本）
 - [`shared-skills-skeleton/`](./shared-skills-skeleton/) — 5 个 skill + 跨工作区软链接架构
 - [`examples/`](./examples/) — 3 个虚构示例工作区
-- [`docs/`](./docs/) — 设计文档
+- [`docs/`](./docs/) — 设计文档（含自进化经验库说明）
 - [`bin/init-workspace.sh`](./bin/init-workspace.sh) — 改造任意目录的脚本
 
 ---
 
-## 四条设计原则
+## 五条设计原则
 
 1. **收敛型 MVP 执行** — 每轮"只做 / 不做 / 可验证"，不扩展不预设
 2. **6 文件记忆模型** — 把 agent 记忆从"一锅 memory"拆成时间（timeline）、空间（workspace-map）、状态（current-position）、反思（decisions / lessons）、元（workspace-brief）五个维度
 3. **明确确认才写入** — agent 提建议，用户点头，才落盘；沉默 = 不写
 4. **软链接共享 skill** — 公共池一份权威，工作区软链接消费，改一处全局生效
+5. **自进化经验库** — agent 把复发的坑提炼成条件句经验（带 scope/计数），下次执行前按 scope 召回自动绕开；脚本定期体检去重/矛盾/退役。详见 [`docs/self-evolving-memory.md`](./docs/self-evolving-memory.md)
 
 ---
 

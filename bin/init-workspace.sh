@@ -48,6 +48,10 @@ cp "$SKELETON/.claude/CLAUDE.md" "$TARGET/.claude/CLAUDE.md"
 cp "$SKELETON/.claude/memory/"*.md "$TARGET/.claude/memory/"
 cp "$SKELETON/AGENTS.md" "$TARGET/AGENTS.md"
 
+# 拷贝机器维护脚本（记忆裁剪 / 经验体检 / 归位检测 / 产物整理）
+mkdir -p "$TARGET/.claude/scripts"
+cp "$SKELETON/.claude/scripts/"*.py "$TARGET/.claude/scripts/"
+
 # 创建 skills 目录（空，等用户自己建软链接）
 mkdir -p "$TARGET/skills"
 
@@ -56,9 +60,10 @@ echo "==> 完成。新工作区已就绪："
 echo "    $TARGET/"
 echo "    ├── .claude/"
 echo "    │   ├── CLAUDE.md"
-echo "    │   └── memory/  (6 文件骨架)"
+echo "    │   ├── memory/   (记忆骨架: timeline / lessons / decisions ...)"
+echo "    │   └── scripts/  (memory_gc / lessons_gc / check_map / organize)"
 echo "    ├── AGENTS.md"
-echo "    └── skills/      (空，按需软链接到 ~/shared-skills/)"
+echo "    └── skills/       (空，按需软链接到 ~/shared-skills/)"
 echo ""
 echo "下一步："
 echo "  1. 编辑 $TARGET/.claude/memory/workspace-brief.md 写入工作区性质"
